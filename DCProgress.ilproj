@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <ProductVersion>2.0.22.15</ProductVersion>
+    <ProjectGuid>{094BA32F-9BB7-4D09-9F53-2AFE74E5B671}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Protect Include="E:\temp\DCProgress\bin\Debug\DCProgress.exe" />
+  </ItemGroup>
+</Project>
