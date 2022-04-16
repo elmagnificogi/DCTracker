@@ -47,7 +47,7 @@ namespace DCProgress
             diabloCloneProgress.Clear();
             doc.LoadHtml(html);
 
-            for(int i = 0; i < 12; i++)
+            for (int i = 0; i < 12; i++)
             {
                 int index = i + 1;
 
@@ -56,7 +56,7 @@ namespace DCProgress
                 string ladder;
                 string sc;
                 string exp;
-                HtmlNode node = doc.DocumentNode.SelectSingleNode("//*[@id=\"memberlist\"]/tbody/tr["+index.ToString()+"]/td[1]/span[1]/code");
+                HtmlNode node = doc.DocumentNode.SelectSingleNode("//*[@id=\"memberlist\"]/tbody/tr[" + index.ToString() + "]/td[1]/span[1]/code");
                 Debug.WriteLine(node.InnerText);  //输出节点内容     
                 pro = node.InnerText;
 
@@ -159,6 +159,7 @@ namespace DCProgress
         static Semaphore lockRun = new Semaphore(1, 1);
         private void Form1_Load(object sender, EventArgs e)
         {
+            comboBox1.SelectedIndex = 4;
             listViewReset();
             var task = Task.Run(() =>
             {
@@ -167,7 +168,7 @@ namespace DCProgress
                     DCProgress_Refresh();
                     Thread.Sleep(5000);
                 }
-                
+
             });
         }
         [DllImport("User32.dll", CharSet = CharSet.Unicode, EntryPoint = "FlashWindow")]
@@ -175,10 +176,8 @@ namespace DCProgress
         [DllImport("kernel32.dll")]
         public static extern bool Beep(int freq, int duration);
 
-
-
-        //直接调用FlashWindow即可
-
+        private int flash_interval = 2;
+        private int flash_phase = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
             try
@@ -190,23 +189,32 @@ namespace DCProgress
                     listView1.Items[i].SubItems[2].Text = diabloCloneProgress[i].ladder;
                     listView1.Items[i].SubItems[3].Text = diabloCloneProgress[i].sc;
                     listView1.Items[i].SubItems[4].Text = diabloCloneProgress[i].exp;
-                    if(diabloCloneProgress[i].progress.Contains("3/6"))
+                    if (diabloCloneProgress[i].progress.Contains("3/6"))
                     {
                         listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.GreenYellow;
                     }
-                    else if(diabloCloneProgress[i].progress.Contains("4/6"))
+                    else if (diabloCloneProgress[i].progress.Contains("4/6"))
                     {
                         listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.Orange;
                     }
                     else if (diabloCloneProgress[i].progress.Contains("5/6"))
                     {
                         listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.Red;
-                        FlashWindow(this.Handle, true);
-                        Beep(800, 300);
                     }
                     else if (diabloCloneProgress[i].progress.Contains("2/6"))
                     {
                         listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.RosyBrown;
+                    }
+
+                    if (diabloCloneProgress[i].progress.Contains(comboBox1.Text))
+                    {
+                        flash_phase++;
+                        if (flash_phase == flash_interval)
+                        {
+                            FlashWindow(this.Handle, true);
+                            flash_phase = 0;
+                        }
+                        Beep(800, 300);
                     }
                 }
             }

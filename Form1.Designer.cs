@@ -34,6 +34,8 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -67,21 +69,46 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(10, 339);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(335, 12);
+            this.label1.Size = new System.Drawing.Size(329, 12);
             this.label1.TabIndex = 3;
-            this.label1.Text = "进度5/6时会自动闪烁加声音报警--暗黑2重置交流群941746977";
+            this.label1.Text = "到达进度会自动闪烁加声音报警--暗黑2重置交流群941746977";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1/6",
+            "2/6",
+            "3/6",
+            "4/6",
+            "5/6"});
+            this.comboBox1.Location = new System.Drawing.Point(68, 314);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(77, 20);
+            this.comboBox1.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 317);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "报警级别";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 357);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "DC追踪-elmagnifico-V1";
+            this.Text = "DC追踪-elmagnifico-V1.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -93,6 +120,8 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
