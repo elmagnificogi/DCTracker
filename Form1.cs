@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListViewItem;
 
-namespace DCProgress
+namespace DCTracker
 {
     public partial class Form1 : Form
     {
@@ -136,16 +136,16 @@ namespace DCProgress
             c1.Width = 40;
             c1.Text = "进度";
             ColumnHeader c2 = new ColumnHeader();
-            c2.Width = 60;
+            c2.Width = 50;
             c2.Text = "服务器";
             ColumnHeader c3 = new ColumnHeader();
-            c3.Width = 80;
+            c3.Width = 70;
             c3.Text = "天梯/经典";
             ColumnHeader c4 = new ColumnHeader();
-            c4.Width = 80;
+            c4.Width = 70;
             c4.Text = "普通/专家";
             ColumnHeader c5 = new ColumnHeader();
-            c5.Width = 60;
+            c5.Width = 50;
             c5.Text = "资料片";
 
             //设置属性
