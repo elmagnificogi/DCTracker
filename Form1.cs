@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -180,6 +181,8 @@ namespace DCTracker
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string Version = "DC追踪-elmagnifico-V"+Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text = Version;
             comboBox1.SelectedIndex = 4;
             listViewReset();
             var task = Task.Run(() =>
@@ -198,7 +201,6 @@ namespace DCTracker
                     }
                     Thread.Sleep(5000);
                 }
-
             });
         }
         [DllImport("User32.dll", CharSet = CharSet.Unicode, EntryPoint = "FlashWindow")]
