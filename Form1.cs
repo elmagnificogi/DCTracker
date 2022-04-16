@@ -123,7 +123,7 @@ namespace DCProgress
             c4.Width = 80;
             c4.Text = "普通/专家";
             ColumnHeader c5 = new ColumnHeader();
-            c5.Width = 80;
+            c5.Width = 60;
             c5.Text = "资料片";
 
             //设置属性
