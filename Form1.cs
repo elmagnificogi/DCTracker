@@ -38,13 +38,14 @@ namespace DCProgress
             myStream.Close();
             return strHTML;
         }
-
+        object lock1 = new object();
         private void DCProgress_Refresh()
         {
+
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
             string html = GetWebClient("https://diablo2.io/dclonetracker.php");
 
-            diabloCloneProgress.Clear();
+            List<DC> dcp = new List<DC>();
             doc.LoadHtml(html);
 
             for (int i = 0; i < 12; i++)
@@ -98,13 +99,34 @@ namespace DCProgress
                 else
                     exp = "错误";
 
-                diabloCloneProgress.Add(new DC(server, sc, exp, ladder, pro));
+                dcp.Add(new DC(server, sc, exp, ladder, pro));
             }
+            diabloCloneProgress = dcp;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DCProgress_Refresh();
+            Task task = Task.Run(() =>
+            {
+                try
+                {
+                    if (Monitor.TryEnter(lock1))
+                    {
+                        DCProgress_Refresh();
+                        Debug.WriteLine("解锁");
+                        Monitor.Exit(lock1);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("锁");
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
+            
         }
 
         void listViewReset()
@@ -156,7 +178,6 @@ namespace DCProgress
             }
         }
 
-        static Semaphore lockRun = new Semaphore(1, 1);
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = 4;
@@ -165,7 +186,16 @@ namespace DCProgress
             {
                 while (true)
                 {
-                    DCProgress_Refresh();
+                    if (Monitor.TryEnter(lock1))
+                    {
+                        DCProgress_Refresh();
+                        Debug.WriteLine("解锁");
+                        Monitor.Exit(lock1);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("锁");
+                    }
                     Thread.Sleep(5000);
                 }
 
@@ -204,6 +234,14 @@ namespace DCProgress
                     else if (diabloCloneProgress[i].progress.Contains("2/6"))
                     {
                         listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.RosyBrown;
+                    }
+                    else if (diabloCloneProgress[i].progress.Contains("6/6"))
+                    {
+                        listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.DarkRed;
+                    }
+                    else
+                    {
+                        listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.Black;
                     }
 
                     if (diabloCloneProgress[i].progress.Contains(comboBox1.Text))

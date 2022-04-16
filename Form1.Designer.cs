@@ -82,7 +82,8 @@
             "3/6",
             "4/6",
             "5/6",
-            "6/6"});
+            "6/6",
+            "禁用"});
             this.comboBox1.Location = new System.Drawing.Point(68, 314);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(77, 20);
