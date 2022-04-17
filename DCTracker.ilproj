@@ -5,6 +5,6 @@
     <ProjectGuid>{094BA32F-9BB7-4D09-9F53-2AFE74E5B671}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
-    <Protect Include="E:\temp\DCProgress\bin\Debug\DCProgress.exe" />
+    <Protect Include="E:\DCTracker\bin\Debug\DCTracker.exe" />
   </ItemGroup>
 </Project>

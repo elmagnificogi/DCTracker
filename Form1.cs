@@ -210,10 +210,17 @@ namespace DCTracker
 
         private int flash_interval = 2;
         private int flash_phase = 0;
+        private int warning_interval = 2;
+        private int warning_phase = 0;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             try
             {
+                bool needWarning = false;
+                var windowInApplicationIsFocused = Form.ActiveForm != null;
+                Debug.WriteLine(windowInApplicationIsFocused);
+
                 for (int i = 0; i < 12; i++)
                 {
                     listView1.Items[i].SubItems[0].Text = diabloCloneProgress[i].progress;
@@ -248,14 +255,35 @@ namespace DCTracker
 
                     if (diabloCloneProgress[i].progress.Contains(comboBox1.Text))
                     {
-                        flash_phase++;
-                        if (flash_phase == flash_interval)
-                        {
-                            FlashWindow(this.Handle, true);
-                            flash_phase = 0;
-                        }
-                        Beep(800, 300);
+                        needWarning = true;
+
                     }
+                }
+
+                if(windowInApplicationIsFocused)
+                {
+                    warning_interval = 5;
+                }
+                else
+                {
+                    warning_interval = 1;
+                }
+
+                if(needWarning)
+                {
+                    warning_phase++;
+                }
+
+                if (warning_phase >= warning_interval)
+                {
+                    warning_phase = 0;
+                    flash_phase++;
+                    if (flash_phase == flash_interval)
+                    {
+                        FlashWindow(this.Handle, true);
+                        flash_phase = 0;
+                    }
+                    Beep(800, 300);
                 }
             }
             catch (Exception ex)
