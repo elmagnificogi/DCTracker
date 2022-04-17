@@ -278,7 +278,7 @@ namespace DCTracker
                 {
                     warning_phase = 0;
                     flash_phase++;
-                    if (flash_phase == flash_interval)
+                    if (flash_phase == flash_interval && !windowInApplicationIsFocused)
                     {
                         FlashWindow(this.Handle, true);
                         flash_phase = 0;
