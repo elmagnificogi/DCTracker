@@ -213,6 +213,14 @@ namespace DCTracker
         private int warning_interval = 2;
         private int warning_phase = 0;
 
+        private bool CheckWarning(string pro)
+        {
+            pro = pro.Trim();
+            int p1 = int.Parse(""+pro[0]);
+            int p2 = int.Parse("" + (comboBox1.Text.Trim())[0]);
+            return p1 > p2;
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             try
@@ -220,7 +228,7 @@ namespace DCTracker
                 bool needWarning = false;
                 var windowInApplicationIsFocused = Form.ActiveForm != null;
                 Debug.WriteLine(windowInApplicationIsFocused);
-
+                int p1 = 0;
                 for (int i = 0; i < 12; i++)
                 {
                     listView1.Items[i].SubItems[0].Text = diabloCloneProgress[i].progress;
@@ -253,14 +261,15 @@ namespace DCTracker
                         listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.Black;
                     }
 
-                    if (diabloCloneProgress[i].progress.Contains(comboBox1.Text))
-                    {
-                        needWarning = true;
-
-                    }
+                    string pro = diabloCloneProgress[i].progress.Trim();
+                    p1 = Math.Max(p1,int.Parse("" + pro[0]));
                 }
 
-                if(windowInApplicationIsFocused)
+                int p2 = int.Parse("" + (comboBox1.Text.Trim())[0]);
+
+                needWarning = p1>=p2;
+
+                if (windowInApplicationIsFocused)
                 {
                     warning_interval = 5;
                 }
@@ -272,6 +281,10 @@ namespace DCTracker
                 if(needWarning)
                 {
                     warning_phase++;
+                }
+                else
+                {
+                    warning_phase = 0;
                 }
 
                 if (warning_phase >= warning_interval)
