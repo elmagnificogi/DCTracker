@@ -124,7 +124,7 @@ namespace DCTracker
                 }
                 catch (Exception ex)
                 {
-
+                    Debug.WriteLine(ex);
                 }
             });
             
@@ -288,7 +288,7 @@ namespace DCTracker
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine(ex);
             }
 
         }
