@@ -14,12 +14,13 @@ namespace DCTracker
         public String exp;
         public String ladder;
         public String progress;
+        public String time;
 
-        public DC(String r, String sc, String exp, String ladder, String pro)
+        public DC(String r, String sc, String time, String ladder, String pro)
         {
             this.region = r;
             this.sc = sc;
-            this.exp = exp;
+            this.time = time;
             this.ladder = ladder;
             this.progress = pro;
         }

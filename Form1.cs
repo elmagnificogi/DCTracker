@@ -57,7 +57,7 @@ namespace DCTracker
                 string server;
                 string ladder;
                 string sc;
-                string exp;
+                string time;
                 HtmlNode node = doc.DocumentNode.SelectSingleNode("//*[@id=\"memberlist\"]/tbody/tr[" + index.ToString() + "]/td[1]/span[1]/code");
                 Debug.WriteLine(node.InnerText);  //输出节点内容     
                 pro = node.InnerText;
@@ -93,14 +93,20 @@ namespace DCTracker
 
                 HtmlNode node5 = doc.DocumentNode.SelectSingleNode("//*[@id=\"memberlist\"]/tbody/tr[" + index.ToString() + "]/td[5]/span[1]/span");
                 Debug.WriteLine(node5.InnerText);  //输出节点内容    
-                if (node5.InnerText.Contains("Non-Expansion"))
-                    exp = "非资";
-                else if (node5.InnerText.Contains("Expansion"))
-                    exp = "资料片";
-                else
-                    exp = "错误";
+                time = node5.InnerText;
+                time = time.Replace("days", "天");
+                time = time.Replace("day", "天");
+                time = time.Replace("week", "周");
+                time = time.Replace("weeks", "周");
+                time = time.Replace("minutes", "分钟");
+                time = time.Replace("minute", "分钟");
+                time = time.Replace("hours", "小时");
+                time = time.Replace("hour", "小时");
+                time = time.Replace("ago", "前");
+                time = time.Replace(" ", "");
+                time = time.Trim();
 
-                dcp.Add(new DC(server, sc, exp, ladder, pro));
+                dcp.Add(new DC(server, sc, time, ladder, pro));
             }
             diabloCloneProgress = dcp;
         }
@@ -146,8 +152,8 @@ namespace DCTracker
             c4.Width = 70;
             c4.Text = "普通/专家";
             ColumnHeader c5 = new ColumnHeader();
-            c5.Width = 50;
-            c5.Text = "资料片";
+            c5.Width = 65;
+            c5.Text = "更新";
 
             //设置属性
             listView1.GridLines = true;  //显示网格线
@@ -235,10 +241,10 @@ namespace DCTracker
                     listView1.Items[i].SubItems[1].Text = diabloCloneProgress[i].region;
                     listView1.Items[i].SubItems[2].Text = diabloCloneProgress[i].ladder;
                     listView1.Items[i].SubItems[3].Text = diabloCloneProgress[i].sc;
-                    listView1.Items[i].SubItems[4].Text = diabloCloneProgress[i].exp;
+                    listView1.Items[i].SubItems[4].Text = diabloCloneProgress[i].time;
                     if (diabloCloneProgress[i].progress.Contains("3/6"))
                     {
-                        listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.GreenYellow;
+                        listView1.Items[i].SubItems[0].ForeColor = System.Drawing.Color.DarkGreen;
                     }
                     else if (diabloCloneProgress[i].progress.Contains("4/6"))
                     {
